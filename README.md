@@ -82,7 +82,6 @@ Inclui uma área pública (loja e donativos) e uma área administrativa para ges
 
 ## ⚙️ Como correr o projeto localmente
 
-```bash
 git clone https://github.com/Masdrabo/psique-inclusiva-ecommerce.git
 cd psique-inclusiva-ecommerce
 
@@ -102,5 +101,5 @@ php artisan serve
 ## 👨‍💻 Autor
 
 Criado e desenvolvido por  
-**Ricardo Oliveira**  
-🔗 https://github.com/Masdrabo
+Ricardo Oliveira  
+https://github.com/Masdrabo
