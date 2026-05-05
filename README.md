@@ -103,7 +103,7 @@ php artisan serve
 
 📘 Guia de atualização do servidor (PTServidor):
 
-👉 [Ver documento](docs/Relatório sobre PTServidor.pdf)
+👉 [Ver documento](docs/Relatorio-PTServidor.pdf)
 
 ---
 ## 👨‍💻 Autor
