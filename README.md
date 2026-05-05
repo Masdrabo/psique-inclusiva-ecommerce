@@ -96,3 +96,11 @@ php artisan migrate --seed
 
 npm run dev
 php artisan serve
+
+---
+
+## 👨‍💻 Autor
+
+Criado e desenvolvido por  
+**Ricardo Oliveira**  
+🔗 https://github.com/Masdrabo
