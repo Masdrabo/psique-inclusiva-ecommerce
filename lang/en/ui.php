@@ -91,8 +91,8 @@ return [
         'option_three_title' => 'Future integration',
         'option_three_description' => 'Ready to evolve with gateways like Stripe, PayPal, or other payment solutions.',
 
-        'cta_title' => 'Thank you for considering supporting this project',
-        'cta_description' => 'Even a small contribution can greatly help the growth, maintenance, and continuous improvement of the platform.',
+        'cta_title' => 'Thank you for supporting mental health.',
+        'cta_description' => 'Check here other ways to support this cause.',
         'cta_button' => 'I want to support',
         'cta_secondary_button' => 'Continue to shop',
 
@@ -200,6 +200,15 @@ return [
         'institutional_about' => 'About us',
         'institutional_support' => 'Support',
         'institutional_emails' => 'Emails',
+        'digital_service' => 'Digital Service',
+        'no_physical_shipping' => 'No physical shipping required.',
+        'no_stock_control' => 'No stock control.',
+        'digital_no_shipping' => 'Digital service - No shipping required.',
+        'delivery_mode' => 'Delivery Mode',
+        'access_instructions' => 'Access Instructions',
+        'membership' => 'Membership',
+        'membership_limit_one' => 'Limit of 1 per order',
+        'period_label' => 'Period',
     ],
 
     'common' => [
@@ -1678,6 +1687,7 @@ return [
         'language_note' => 'Store available in English and Portuguese languages.',
         'rights' => 'All rights reserved.',
         'complaints_book' => 'Complaints Book',
+        'author' => 'Created and developed by',
     ],
 
     'pagination' => [

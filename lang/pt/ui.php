@@ -91,8 +91,8 @@ return [
         'option_three_title' => 'Integração futura',
         'option_three_description' => 'Preparado para evoluir com gateways como Stripe, PayPal ou referências de pagamento.',
 
-        'cta_title' => 'Obrigado por considerares apoiar este projeto',
-        'cta_description' => 'Mesmo um pequeno contributo pode ajudar bastante no crescimento, manutenção e melhoria contínua da plataforma.',
+        'cta_title' => 'Obrigado por apoiar a saúde mental.',
+        'cta_description' => 'Consulta aqui outras formas de apoiar esta causa.',
         'cta_button' => 'Quero apoiar',
         'cta_secondary_button' => 'Continuar na loja',
 
@@ -200,6 +200,15 @@ return [
         'institutional_about' => 'Sobre nós',
         'institutional_support' => 'Apoio',
         'institutional_emails' => 'E-mails',
+        'digital_service' => 'Serviço digital',
+        'no_physical_shipping' => 'Não requer envio físico.',
+        'no_stock_control' => 'Sem controlo de stock.',
+        'digital_no_shipping' => 'Serviço digital - não requer envio.',
+        'delivery_mode' => 'Modo de entrega',
+        'access_instructions' => 'Instruções de acesso',
+        'membership' => 'Membro',
+        'membership_limit_one' => 'Limite de 1 por encomenda',
+        'period_label' => 'Período',
     ],
 
     'common' => [
@@ -1685,6 +1694,7 @@ return [
         'language_note' => 'Loja disponível em Português e Inglês.',
         'rights' => 'Todos os direitos reservados.',
         'complaints_book' => 'Livro de Reclamações',
+        'author' => 'Criado e desenvolvido por',
     ],
 
     'pagination' => [

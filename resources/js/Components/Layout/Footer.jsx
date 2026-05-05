@@ -123,9 +123,9 @@ export default function Footer() {
             href: `/${locale}/disputes`,
         },
         {
-        key: "shipping_returns",
-        label: t("ui.shipping_returns.title", "Shipping & Returns"),
-        href: `/${locale}/shipping-returns`,
+            key: "shipping_returns",
+            label: t("ui.shipping_returns.title", "Shipping & Returns"),
+            href: `/${locale}/shipping-returns`,
         },
     ];
 
@@ -221,6 +221,18 @@ export default function Footer() {
 
                     <div>
                         contacto@psiqueinclusivaonline.pt · +351 962146424
+                    </div>
+
+                    <div>
+                        {t("ui.footer.author")}{" "}
+                        <a
+                            href="https://github.com/Masdrabo"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-gray-700 hover:text-gray-900 underline"
+                        >
+                            Ricardo Oliveira
+                        </a>
                     </div>
                 </div>
             </div>

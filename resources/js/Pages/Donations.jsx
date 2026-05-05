@@ -1,8 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, usePage, router, } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 import { useI18n } from '@/lib/i18n';
-
 
 const MIN_DONATION_AMOUNT = 1;
 const MAX_DONATION_AMOUNT = 10000;
@@ -72,45 +71,32 @@ export default function Donations() {
         { value: 50, label: '50€' },
     ];
 
-    const donationGuideImages = [
-        {
-            src: '/images/donations/recibo.jpg',
-            alt: t(
-                'ui.donations.guides.receipt_alt',
-                'Recibo do donativo para saúde mental'
-            ),
-            title: t(
-                'ui.donations.guides.receipt_title',
-                'Recibo do donativo'
-            ),
-            description: t(
-                'ui.donations.guides.receipt_description',
-                'Informação sobre recibo e benefícios fiscais associados ao donativo.'
-            ),
-        },
-        {
-            src: '/images/donations/donativo.jpg',
-            alt: t(
-                'ui.donations.guides.mbway_alt',
-                'Como enviar um donativo por MB WAY'
-            ),
-            title: t(
-                'ui.donations.guides.mbway_title',
-                'Como doar'
-            ),
-            description: t(
-                'ui.donations.guides.mbway_description',
-                'Consulta as instruções para enviar o teu donativo por MB WAY ou outros meios.'
-            ),
-        },
-    ];
+    const receiptImage = {
+        src: '/images/donations/recibo.jpg',
+        alt: t(
+            'ui.donations.guides.receipt_alt',
+            'Recibo do donativo para saúde mental'
+        ),
+    };
+
+    const mbwayImage = {
+        src: '/images/donations/donativo.jpg',
+        alt: t(
+            'ui.donations.guides.mbway_alt',
+            'Como enviar um donativo por MB WAY'
+        ),
+    };
 
     const [selectedAmount, setSelectedAmount] = useState(null);
     const [customAmount, setCustomAmount] = useState('');
     const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
     const [expandedImage, setExpandedImage] = useState(null);
-    const [paymentMethodCode, setPaymentMethodCode] = useState('ifthenpay_mb');
+    const [paymentMethodCode, setPaymentMethodCode] = useState('ifthenpay_mbway');
     const [mbwayPhone, setMbwayPhone] = useState('');
+    const [ibanCopied, setIbanCopied] = useState(false);
+
+    const ibanFormatted = 'PT50 0036 0367 9910 6033 18907';
+    const ibanPlain = 'PT50003603679910603318907';
 
     const selectedNumericAmount = useMemo(() => {
         if (customAmount !== '') return parseAmount(customAmount);
@@ -137,30 +123,6 @@ export default function Donations() {
 
     const canSubmitDonation = isDonationValid && !mbwayPhoneError;
 
-    const impactItems = [
-        {
-            title: t('ui.donations.impact.secure_platform_title', 'Ajuda a manter a plataforma'),
-            description: t(
-                'ui.donations.impact.secure_platform_description',
-                'O teu contributo ajuda-nos a manter a loja, melhorar funcionalidades e garantir uma melhor experiência para todos.'
-            ),
-        },
-        {
-            title: t('ui.donations.impact.improve_project_title', 'Permite continuar a evoluir o projeto'),
-            description: t(
-                'ui.donations.impact.improve_project_description',
-                'Os donativos ajudam no desenvolvimento contínuo, na manutenção técnica e na criação de novas funcionalidades.'
-            ),
-        },
-        {
-            title: t('ui.donations.impact.community_title', 'Contribui para a comunidade'),
-            description: t(
-                'ui.donations.impact.community_description',
-                'Cada apoio é uma forma de fortalecer este projeto e apoiar o seu crescimento a longo prazo.'
-            ),
-        },
-    ];
-
     const handlePresetAmountClick = (value) => {
         setSelectedAmount(value);
         setCustomAmount('');
@@ -171,6 +133,15 @@ export default function Donations() {
         const normalized = normalizeAmountInput(event.target.value);
         setCustomAmount(normalized);
         setSelectedAmount(null);
+    };
+
+    const handleCopyIban = async () => {
+        await navigator.clipboard.writeText(ibanPlain);
+        setIbanCopied(true);
+
+        setTimeout(() => {
+            setIbanCopied(false);
+        }, 2000);
     };
 
     const handleDonateClick = () => {
@@ -217,39 +188,44 @@ export default function Donations() {
 
             <div className="py-10">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <section className="mb-10">
+                        <div className="w-full overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-200 sm:p-6">
+                            <img
+                                src={mbwayImage.src}
+                                alt={mbwayImage.alt}
+                                className="mx-auto max-h-[620px] w-full rounded-xl object-contain"
+                            />
+
+                            <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                                <code className="rounded-xl bg-gray-100 px-4 py-3 text-sm font-semibold text-gray-800">
+                                    {ibanFormatted}
+                                </code>
+
+                                <button
+                                    type="button"
+                                    onClick={handleCopyIban}
+                                    className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700"
+                                >
+                                    {ibanCopied ? 'IBAN copiado!' : 'Copiar IBAN'}
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
                     <section className="overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-700 shadow-xl">
                         <div className="grid gap-8 px-6 py-10 text-white sm:px-8 lg:grid-cols-2 lg:px-10 lg:py-14">
-                            <div className="flex flex-col justify-center">
-                                <span className="mb-3 inline-flex w-fit rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-                                    {t('ui.donations.hero_badge', 'Apoio ao projeto')}
-                                </span>
-
-                                <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
-                                    {t('ui.donations.hero_title', 'O teu apoio faz a diferença')}
-                                </h2>
-
-                                <p className="mt-4 max-w-2xl text-sm leading-6 text-emerald-50 sm:text-base">
-                                    {t(
-                                        'ui.donations.hero_description',
-                                        'Se gostas deste projeto e queres ajudar na sua evolução, podes contribuir através de um donativo. Todo o apoio ajuda a melhorar a plataforma, manter a infraestrutura e desenvolver novas funcionalidades.'
-                                    )}
-                                </p>
-
-                                <div className="mt-6 flex flex-wrap gap-3">
-                                    <a
-                                        href="#opcoes-donativo"
-                                        className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
-                                    >
-                                        {t('ui.donations.hero_cta_primary', 'Ver opções de donativo')}
-                                    </a>
-
-                                    <a
-                                        href="#porque-doar"
-                                        className="inline-flex items-center rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                                    >
-                                        {t('ui.donations.hero_cta_secondary', 'Saber mais')}
-                                    </a>
-                                </div>
+                            <div className="flex items-center justify-center">
+                                <button
+                                    type="button"
+                                    onClick={() => setExpandedImage(receiptImage)}
+                                    className="block w-full max-w-xl overflow-hidden rounded-2xl bg-white p-4 shadow-2xl transition hover:scale-[1.01] sm:p-5"
+                                >
+                                    <img
+                                        src={receiptImage.src}
+                                        alt={receiptImage.alt}
+                                        className="max-h-[520px] w-full rounded-xl object-contain"
+                                    />
+                                </button>
                             </div>
 
                             <div className="flex items-center justify-center">
@@ -324,29 +300,11 @@ export default function Donations() {
                                                         ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200'
                                                         : 'border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200',
                                                 ].join(' ')}
-                                                aria-label={t(
-                                                    'ui.donations.custom_amount_label',
-                                                    'Ou introduz um valor personalizado'
-                                                )}
                                             />
                                             <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-gray-500">
                                                 €
                                             </span>
                                         </div>
-
-                                        <p className="mt-2 text-xs text-gray-500">
-                                            {t(
-                                                'ui.donations.custom_amount_hint',
-                                                'Podes escrever o montante que desejares.'
-                                            )}
-                                        </p>
-
-                                        <p className="mt-1 text-xs text-gray-500">
-                                            {t(
-                                                'ui.donations.custom_amount_limits',
-                                                `Montante mínimo: ${MIN_DONATION_AMOUNT.toFixed(2)} € | máximo: ${MAX_DONATION_AMOUNT.toFixed(2)} €.`
-                                            )}
-                                        </p>
                                     </div>
 
                                     {hasTriedSubmit && validationError ? (
@@ -372,19 +330,6 @@ export default function Donations() {
                                         <div className="grid grid-cols-2 gap-3">
                                             <button
                                                 type="button"
-                                                onClick={() => setPaymentMethodCode('ifthenpay_mb')}
-                                                className={[
-                                                    'rounded-xl border px-4 py-3 text-sm font-semibold transition',
-                                                    paymentMethodCode === 'ifthenpay_mb'
-                                                        ? 'border-emerald-600 bg-emerald-600 text-white shadow-sm'
-                                                        : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50',
-                                                ].join(' ')}
-                                            >
-                                                Multibanco
-                                            </button>
-
-                                            <button
-                                                type="button"
                                                 onClick={() => setPaymentMethodCode('ifthenpay_mbway')}
                                                 className={[
                                                     'rounded-xl border px-4 py-3 text-sm font-semibold transition',
@@ -394,6 +339,19 @@ export default function Donations() {
                                                 ].join(' ')}
                                             >
                                                 MB WAY
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => setPaymentMethodCode('ifthenpay_mb')}
+                                                className={[
+                                                    'rounded-xl border px-4 py-3 text-sm font-semibold transition',
+                                                    paymentMethodCode === 'ifthenpay_mb'
+                                                        ? 'border-emerald-600 bg-emerald-600 text-white shadow-sm'
+                                                        : 'border-gray-200 bg-white text-gray-800 hover:bg-gray-50',
+                                                ].join(' ')}
+                                            >
+                                                Multibanco
                                             </button>
                                         </div>
                                     </div>
@@ -430,15 +388,6 @@ export default function Donations() {
                                         </div>
                                     ) : null}
 
-                                    <div className="mt-6 rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4">
-                                        <p className="text-sm text-gray-700">
-                                            {t(
-                                                'ui.donations.card_notice',
-                                                'Nesta fase, esta página pode funcionar como apresentação institucional do sistema de donativos. No passo seguinte, podemos ligar aqui Stripe, PayPal ou outro método de pagamento.'
-                                            )}
-                                        </p>
-                                    </div>
-
                                     <div className="mt-6">
                                         <button
                                             type="button"
@@ -459,132 +408,6 @@ export default function Donations() {
                         </div>
                     </section>
 
-                    <section className="mt-10">
-                        <div className="mb-4">
-                            <h2 className="text-2xl font-bold text-gray-900">
-                                {t('ui.donations.guides.section_title', 'Como contribuir')}
-                            </h2>
-                            <p className="mt-2 text-sm leading-6 text-gray-600 sm:text-base">
-                                {t(
-                                    'ui.donations.guides.section_description',
-                                    'Consulta estas imagens para veres como doar e como funciona a emissão do recibo.'
-                                )}
-                            </p>
-                        </div>
-
-                        <div className="grid gap-6 lg:grid-cols-2">
-                            {donationGuideImages.map((image) => (
-                                <div
-                                    key={image.src}
-                                    className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200"
-                                >
-                                    <button
-                                        type="button"
-                                        onClick={() => setExpandedImage(image)}
-                                        className="group block w-full text-left"
-                                    >
-                                        <div className="flex h-[420px] items-center justify-center overflow-hidden p-4 sm:p-5">
-                                            <img
-                                                src={image.src}
-                                                alt={image.alt}
-                                                className="max-h-full max-w-full rounded-xl object-contain transition duration-300 group-hover:scale-[1.01]"
-                                            />
-                                        </div>
-                                    </button>
-
-                                    <div className="px-4 pb-4 sm:px-5 sm:pb-5">
-                                        <h3 className="text-lg font-semibold text-gray-900">
-                                            {image.title}
-                                        </h3>
-                                        <p className="mt-2 text-sm leading-6 text-gray-600">
-                                            {image.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* <section id="porque-doar" className="mt-10 grid gap-6 lg:grid-cols-3">
-                        {impactItems.map((item) => (
-                            <div
-                                key={item.title}
-                                className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200"
-                            >
-                                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        className="h-6 w-6"
-                                    >
-                                        <path d="M11.7 2.805a.75.75 0 01.6 0l7.5 3a.75.75 0 01.45.696V12a9.75 9.75 0 01-7.19 9.406.75.75 0 01-.42 0A9.75 9.75 0 014.75 12V6.5a.75.75 0 01.45-.696l7.5-3z" />
-                                    </svg>
-                                </div>
-
-                                <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-
-                                <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
-                            </div>
-                        ))}
-                    </section>
-
-                    <section
-                        id="opcoes-donativo"
-                        className="mt-10 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 sm:p-8"
-                    >
-                        <div className="max-w-3xl">
-                            <h2 className="text-2xl font-bold text-gray-900">
-                                {t('ui.donations.options_title', 'Opções de donativo')}
-                            </h2>
-
-                            <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
-                                {t(
-                                    'ui.donations.options_description',
-                                    'Podes começar com uma secção simples de apoio ao projeto e, mais tarde, integrar um sistema real de pagamentos com confirmação, histórico e agradecimento automático.'
-                                )}
-                            </p>
-                        </div>
-
-                        <div className="mt-8 grid gap-4 md:grid-cols-3">
-                            <div className="rounded-2xl border border-gray-200 p-5">
-                                <h3 className="text-lg font-semibold text-gray-900">
-                                    {t('ui.donations.option_one_title', 'Donativo simples')}
-                                </h3>
-                                <p className="mt-2 text-sm text-gray-600">
-                                    {t(
-                                        'ui.donations.option_one_description',
-                                        'Valor único, rápido e direto, ideal para quem quer apoiar de forma simples.'
-                                    )}
-                                </p>
-                            </div>
-
-                            <div className="rounded-2xl border border-gray-200 p-5">
-                                <h3 className="text-lg font-semibold text-gray-900">
-                                    {t('ui.donations.option_two_title', 'Valor personalizado')}
-                                </h3>
-                                <p className="mt-2 text-sm text-gray-600">
-                                    {t(
-                                        'ui.donations.option_two_description',
-                                        'Possibilidade de o utilizador escolher livremente quanto deseja contribuir.'
-                                    )}
-                                </p>
-                            </div>
-
-                            <div className="rounded-2xl border border-gray-200 p-5">
-                                <h3 className="text-lg font-semibold text-gray-900">
-                                    {t('ui.donations.option_three_title', 'Integração futura')}
-                                </h3>
-                                <p className="mt-2 text-sm text-gray-600">
-                                    {t(
-                                        'ui.donations.option_three_description',
-                                        'Preparado para evoluir com gateways como Stripe, PayPal ou referências de pagamento.'
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-                    </section> */}
-
                     <section className="mt-10 rounded-2xl bg-gray-900 px-6 py-8 text-white shadow-lg sm:px-8">
                         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                             <div className="max-w-2xl">
@@ -603,12 +426,14 @@ export default function Donations() {
                             </div>
 
                             <div className="flex flex-wrap gap-3">
-                                <button
-                                    type="button"
+                                <a
+                                    href="https://mentemovimento.pt/em-que-posso-ajudar/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-400"
                                 >
                                     {t('ui.donations.cta_button', 'Quero apoiar')}
-                                </button>
+                                </a>
 
                                 <Link
                                     href={`/${locale}/shop`}

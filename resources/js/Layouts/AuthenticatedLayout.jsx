@@ -432,12 +432,20 @@ export default function AuthenticatedLayout({ header, headerActions = null, chil
                 aria-label={t('ui.donations.button', {}, 'Donativos')}
                 className={[
                     'fixed bottom-4 right-4 z-50',
-                    'inline-flex min-h-[52px] items-center gap-2',
-                    'rounded-full px-4 py-3 sm:px-5',
-                    'text-sm font-semibold text-white',
-                    'shadow-lg transition duration-200',
+
+                    // 🔥 TAMANHO
+                    'inline-flex min-h-[60px] items-center gap-3',
+                    'rounded-full px-6 py-4 sm:px-7',
+
+                    // 🔥 TEXTO
+                    'text-base font-semibold text-white',
+
+                    // 🔥 VISUAL
+                    'shadow-xl transition duration-200',
                     'focus:outline-none focus:ring-2 focus:ring-offset-2',
+
                     'sm:bottom-6 sm:right-6',
+
                     isDonations
                         ? 'bg-emerald-700 ring-2 ring-emerald-300'
                         : 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500',
