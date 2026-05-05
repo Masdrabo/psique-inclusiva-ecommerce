@@ -33,25 +33,25 @@ Inclui uma área pública (loja e donativos) e uma área administrativa para ges
 ## 📸 Screenshots
 
 ### 💚 Donativos
-![Donations](./public/images/screenshots/01-donations.png)
+![Donations](public/images/screenshots/01-donations.png)
 
 ### 🛒 Carrinho
-![Cart](./public/images/screenshots/02-cart.png)
+![Cart](public/images/screenshots/02-cart.png)
 
 ### 💳 Checkout
-![Checkout](./public/images/screenshots/03-checkout.png)
+![Checkout](public/images/screenshots/03-checkout.png)
 
 ### 🧑‍💼 Admin Dashboard
-![Admin](./public/images/screenshots/04-admindashboard.png)
+![Admin](public/images/screenshots/04-admindashboard.png)
 
 ### 🛠 Manager Dashboard
-![Manager](./public/images/screenshots/05-managerdashboard.png)
+![Manager](public/images/screenshots/05-managerdashboard.png)
 
 ### 🛍 Shop
-![Shop](./public/images/screenshots/06-shop.png)
+![Shop](public/images/screenshots/06-shop.png)
 
 ### 👟 Produto
-![Product](./public/images/screenshots/07-product.png)
+![Product](public/images/screenshots/07-product.png)
 
 ---
 
