@@ -97,7 +97,15 @@ npm run dev
 php artisan serve
 
 ---
+---
 
+## 📄 Documentação
+
+📘 Guia de atualização do servidor (PTServidor):
+
+👉 [Ver documento](docs/Relatório sobre PTServidor.pdf)
+
+---
 ## 👨‍💻 Autor
 
 Criado e desenvolvido por  
