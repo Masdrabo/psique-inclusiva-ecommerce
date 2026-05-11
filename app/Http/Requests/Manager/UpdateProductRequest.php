@@ -208,7 +208,6 @@ class UpdateProductRequest extends FormRequest
             'variants' => [
                 Rule::requiredIf($isVariable),
                 'array',
-                'min:1',
             ],
             'variants.*.id' => [
                 'nullable',
@@ -225,7 +224,6 @@ class UpdateProductRequest extends FormRequest
             'variants.*.attribute_value_ids' => [
                 Rule::requiredIf($isVariable),
                 'array',
-                'min:1',
             ],
             'variants.*.attribute_value_ids.*' => ['integer', 'exists:attribute_values,id'],
             'variants.*.price' => [

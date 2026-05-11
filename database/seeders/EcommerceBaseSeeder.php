@@ -213,7 +213,7 @@ class EcommerceBaseSeeder extends Seeder
             // -------------------------
             PaymentMethod::firstOrCreate(
                 ['code' => 'manual'],
-                ['name' => 'Pagamento manual (MVP)', 'is_active' => true]
+                ['name' => 'Pagamento manual', 'is_active' => true]
             );
 
             PaymentMethod::firstOrCreate(

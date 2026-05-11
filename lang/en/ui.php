@@ -32,6 +32,7 @@ return [
         'impact_item_one' => 'Promote a community that is more informed, aware and close to mental health.',
         'impact_item_two' => 'Build bridges between people, projects, services and responses with social value.',
         'impact_item_three' => 'Give visibility to initiatives with purpose, inclusion and positive impact.',
+        'impact_title' => 'The impact we want to create',
         'contacts_title' => 'Contacts',
         'contacts_text' => 'If you need clarification, want to request information or get in touch with the team, you can use the contacts below.',
         'contacts_phone_title' => 'Phone',
