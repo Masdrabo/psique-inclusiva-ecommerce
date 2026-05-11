@@ -58,8 +58,8 @@ Inclui uma área pública (loja e donativos) e uma área administrativa para ges
 ## 🧰 Tecnologias utilizadas
 
 ### Backend
-- Laravel (PHP)
-- MySQL
+- Laravel (PHP 8.2.29)
+- MySQL (Workbench8.4)
 
 ### Frontend
 - React (Inertia.js)
@@ -70,6 +70,9 @@ Inclui uma área pública (loja e donativos) e uma área administrativa para ges
 
 ### Outras
 - Vite
+- Node (v24.11.1)
+- Composer (version 2.9.2)
+- npm (11.6.2)
 - REST APIs
 
 ---
